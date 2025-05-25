@@ -1,0 +1,17 @@
+@echo off
+setlocal
+
+
+set MYSQL_USER=root
+set MYSQL_PASSWORD="password"
+set DATABASE_NAME=jewelry_shop
+set BACKUP_DIR=D:\DB_Backups
+set TIMESTAMP=%DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%
+set FILENAME=%DATABASE_NAME%_%TIMESTAMP%.sql
+
+if not exist "%BACKUP_DIR%" mkdir "%BACKUP_DIR%"
+
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqldump.exe" -u%MYSQL_USER% -p%MYSQL_PASSWORD% --routines --events --single-transaction --databases %DATABASE_NAME% > "%BACKUP_DIR%\%FILENAME%"
+
+pause
+endlocal
